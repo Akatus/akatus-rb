@@ -1,0 +1,14 @@
+development:
+  uri: https://dev.akatus.com
+  email: (your akatus sandbox's email here)
+  api_key: (your api key here)
+
+test:
+  uri: https://dev.akatus.com
+  email: (your akatus sandbox's email here)
+  api_key: (your api key here)
+
+production:
+  uri: https://www.akatus.com
+  email: (your akatus email here)
+  api_key: (your api key here)

@@ -4,7 +4,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
 require "akatus/version"
 
 Gem::Specification.new do |gem|
-  gem.name          = 'akatus-client'
+  gem.name          = 'akatus'
   gem.version       = Akatus::VERSION
   gem.date          = '2012-01-14'
   gem.summary       = "Akatus Meios de Pagamento"

@@ -14,7 +14,7 @@ module Akatus
     end  
 
     def add_product(attributes = {})
-      Product.new({
+      @products << Product.new({
         :code => attributes[:code],
         :name => attributes[:name],
         :weight => attributes[:weight],

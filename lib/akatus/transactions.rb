@@ -1,37 +1,7 @@
 module Akatus
   class Transactions
-    def process(params = {})
-      builder = Nokogiri::XML::Builder.new do |xml|
-        xml.carrinho {
-          xml.recebedor {
-            xml.api_key API_KEY
-            xml.email EMAIL
-          }
-          xml.pagador {
-            xml.nome params[:buyer][:name]
-            xml.email params[:buyer][:email]
-          }
-          xml.produtos {
-            params[:payment][:payment_items].each do |item|
-              xml.produto {
-                xml.codigo item[:code]
-                xml.descricao item[:name]
-                xml.quantidade item[:quantity] || 1
-                xml.peso item[:weight] || 0.0
-                xml.frete item[:freight_amount] || 0.0
-                xml.preco item[:price]
-              }
-            end  
-          }
-          xml.transacao {
-            xml.desconto_total params[:payment][:discount_amount] || 0.0
-            xml.peso_total params[:payment][:weight] || 0.0
-            xml.frete_total params[:payment][:freight_amount] || 0.0
-            xml.moeda 'BRL'
-            xml.meio_de_pagamento params[:payment_method]
-          }
-        }
-      end        
+    def process(order)
+      xml = prepare_xml_to_send order
     end
 
     def self.status(akatus_uuid)
@@ -43,5 +13,43 @@ module Akatus
       @response ||= HTTPI.get request
       #TODO Finish to implement this
     end  
+
+    private
+
+      def prepare_xml_to_send(order)
+        builder = Nokogiri::XML::Builder.new do |xml|
+          xml.carrinho {
+            xml.recebedor {
+              xml.api_key API_KEY
+              xml.email EMAIL
+            }
+            xml.pagador {
+              xml.nome order.buyer_name
+              xml.email order.buyer_email
+            }
+            xml.produtos {
+              order.products.each do |product|
+                xml.produto {
+                  xml.codigo product.code
+                  xml.descricao product.name
+                  xml.quantidade product.quantity || 1
+                  xml.peso product.weight || 0.0
+                  xml.frete product.freight_amount || 0.0
+                  xml.preco product.price
+                }
+              end  
+            }
+
+            xml.transacao {
+              xml.desconto_total order.discount_amount || 0.0
+              xml.peso_total order.weight || 0.0
+              xml.frete_total order.freight_amount || 0.0
+              xml.moeda 'BRL'
+              xml.meio_de_pagamento order.payment_method
+              xml.parcelas order.installments
+            }
+          }
+        end  
+      end
   end
 end  

@@ -11,6 +11,7 @@ module Akatus
       @weight = attributes[:weight]
       @payment_method = attributes[:payment_method]
       @installments = attributes[:installments]
+      @products = []
     end  
 
     def add_product(attributes = {})

@@ -19,6 +19,7 @@ module Akatus
         :code => attributes[:code],
         :name => attributes[:name],
         :weight => attributes[:weight],
+        :quantity => attributes[:quantity]
         :freight_amount => attributes[:freight_amount],
         :discount_amount => attributes[:discount_amount],
         :price => attributes[:price]

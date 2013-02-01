@@ -1,0 +1,4 @@
+test:
+  uri: https://test.akatus.com
+  email: seller@store.com
+  api_key: 1234-000000000-987654321

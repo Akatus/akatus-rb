@@ -2,16 +2,29 @@
 
 module Akatus
   class PaymentMethods
+
+      ALL = [
+        MASTER   = :master,
+        VISA     = :visa,
+        AMEX     = :amex,
+        ELO      = :elo,
+        DINERS   = :diners,
+        BOLETO   = :boleto,
+        ITAU     = :itau,
+        BB       = :bb,
+        BRADESCO = :bradesco
+      ].freeze
+
     def self.available
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.meios_de_pagamento {
           xml.correntista {
-            xml.api_key API_KEY
-            xml.email EMAIL
+            xml.api_key seller_api_key
+            xml.email   seller_email
           }
         }
-      end  
-      request = HTTPI::Request.new(AKATUS_URI + '/meios-de-pagamento.xml')
+      end
+      request = HTTPI::Request.new(akatus_api_uri + '/meios-de-pagamento.xml')
       request.body = builder.to_xml
       request.open_timeout = 10 # sec
       request.read_timeout = 30 # sec
@@ -33,7 +46,7 @@ module Akatus
             payment_method[:description] = pm['descricao']
             payment_method[:installments] = pm['parcelas'].to_i
             payment_methods << payment_method
-          end       
+          end
           if pr['descricao'] == 'Cartão de Crédito'
             splited_payment_methods[:credit_card] = payment_methods
           else
@@ -48,7 +61,7 @@ module Akatus
           bills << bill
           splited_payment_methods[:bill] = bills
         end
-      end  
+      end
       splited_payment_methods
     end
 
@@ -57,5 +70,5 @@ module Akatus
       raise StandardError, 'Akatus account not found' if parsed_response['resposta']['status'] == 'erro'
       parsed_response['resposta']['meios_de_pagamento']['meio_de_pagamento']
     end
-  end  
+  end
 end

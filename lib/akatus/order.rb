@@ -12,18 +12,18 @@ module Akatus
       @payment_method = attributes[:payment_method]
       @installments = attributes[:installments]
       @products = []
-    end  
+    end
 
     def add_product(attributes = {})
       @products << Product.new({
         :code => attributes[:code],
         :name => attributes[:name],
         :weight => attributes[:weight],
-        :quantity => attributes[:quantity]
+        :quantity => attributes[:quantity],
         :freight_amount => attributes[:freight_amount],
         :discount_amount => attributes[:discount_amount],
         :price => attributes[:price]
-      })  
+      })
     end
   end
 end

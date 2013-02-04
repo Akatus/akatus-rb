@@ -18,5 +18,5 @@ end
 
 if defined?(Rails)
   Akatus.env         = Rails.env
-  Akatus.config_file = Rails.root.join("config/akatus.yml")
+  Akatus.config_file = Rails.root || Pathname.new('').join("config/akatus.yml")
 end

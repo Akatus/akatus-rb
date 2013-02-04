@@ -1,9 +1,10 @@
 module Akatus
   class Installments
-    # payment_method_code 
-    # :master, :visa, :elo, :diners, :boleto, :itau, :bb, :bradesco, :amex
+
+    SIMULATION_URI =
+
     def self.simulate(payment_method_code, amount)
-      url = "#{AKATUS_URI}/parcelamento/simulacao.json?email=#{EMAIL}&api_key=#{API_KEY}&payment_method=#{payment_method_code}&amount=#{amount}"
+      url = "#{akatus_api_uri}/parcelamento/simulacao.json?email=#{seller_email}&api_key=#{seller_api_key}&payment_method=#{payment_method_code}&amount=#{amount}"
       request = HTTPI::Request.new
       request.url = url
       request.open_timeout = 10 # sec
@@ -27,7 +28,7 @@ module Akatus
           installment[:total_amount] = p['total'].to_f
           translated[:installments] << installment
         end
-        translated  
-      end  
+        translated
+      end
   end
 end

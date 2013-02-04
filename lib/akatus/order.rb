@@ -13,7 +13,6 @@ module Akatus
       self.payment_method = attributes[:payment_method]
       self.installments = attributes[:installments]
       self.products = []
-    end  
 
     def add_product(attributes = {})
       self.products << Product.new({

@@ -5,14 +5,14 @@ module Akatus
     end
 
     def self.status(akatus_uuid)
-      url = "#{AKATUS_URI}/transacao-simplificada/#{akatus_uuid}.json?email=#{EMAIL}&api_key=#{API_KEY}"
+      url = "#{akatus_api_uri}/transacao-simplificada/#{akatus_uuid}.json?email=#{seller_email}&api_key=#{seller_api_key}"
       request = HTTPI::Request.new
       request.url = url
       request.open_timeout = 10 # sec
       request.read_timeout = 30 # sec
       @response ||= HTTPI.get request
       #TODO Finish to implement this
-    end  
+    end
 
     private
 
@@ -20,8 +20,8 @@ module Akatus
         builder = Nokogiri::XML::Builder.new do |xml|
           xml.carrinho {
             xml.recebedor {
-              xml.api_key API_KEY
-              xml.email EMAIL
+              xml.api_key seller_api_key
+              xml.email seller_email
             }
             xml.pagador {
               xml.nome order.buyer_name
@@ -49,7 +49,7 @@ module Akatus
                   xml.frete product.freight_amount || 0.0
                   xml.preco product.price
                 }
-              end  
+              end
             }
 
             xml.
@@ -74,7 +74,7 @@ module Akatus
               end  
             }
           }
-        end  
+        end
       end
 
       def self.map_payment_method(payment_method)
@@ -96,4 +96,4 @@ module Akatus
         end
       end
   end
-end  
+end

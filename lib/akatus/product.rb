@@ -3,13 +3,13 @@ module Akatus
     attr_accessor :code, :name, :quantity, :weight, :freight_amount, :discount_amount, :price
 
     def initialize(params = {})
-      @code = params[:code]
-      @name = params[:name]
-      @quantity = params[:quantity]
-      @weight = params[:weight]
-      @freight_amount = params[:freight_amount]
-      @discount_amount = params[:discount_amount]
-      @price = params[:price]
+      self.code = params[:code]
+      self.name = params[:name]
+      self.quantity = params[:quantity]
+      self.weight = params[:weight]
+      self.freight_amount = params[:freight_amount]
+      self.discount_amount = params[:discount_amount]
+      self.price = params[:price]
     end
   end  
 end  

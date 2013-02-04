@@ -3,6 +3,7 @@ require 'akatus/payment_methods'
 require 'akatus/transactions'
 require 'akatus/product'
 require 'akatus/order'
+require 'akatus/credit_card'
 
 module Akatus
   CONFIG = YAML.load_file(File.join('config', 'akatus.yml'))[Rails.env]
@@ -15,4 +16,5 @@ module Akatus
   autoload :Transactions,     'akatus/transactions'
   autoload :Product,          'akatus/product'
   autoload :Order,            'akatus/order'
+  autoload :CreditCard,       'akatus/credit_card'
 end

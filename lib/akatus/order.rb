@@ -13,6 +13,7 @@ module Akatus
       self.payment_method = attributes[:payment_method]
       self.installments = attributes[:installments]
       self.products = []
+    end  
 
     def add_product(attributes = {})
       self.products << Product.new({
@@ -24,18 +25,18 @@ module Akatus
         :discount_amount => attributes[:discount_amount],
         :price => attributes[:price]
       })  
+    end  
 
-      def credit_card(attributes = {})
-        self.credit_card = CreditCard.new({
-          :number => attributes[:number],
-          :cvv => attributes[:cvv],
-          :expires_at => attributes[:expires_at],
-          :flag => attributes[:flag],
-          :holder_name => attributes[:holder_name],
-          :holder_cpf => attributes[:holder_cpf],
-          :holder_phone => attributes[:holder_phone]
-        })
-      end
+    def credit_card(attributes = {})
+      self.credit_card = CreditCard.new({
+        :number => attributes[:number],
+        :cvv => attributes[:cvv],
+        :expires_at => attributes[:expires_at],
+        :flag => attributes[:flag],
+        :holder_name => attributes[:holder_name],
+        :holder_cpf => attributes[:holder_cpf],
+        :holder_phone => attributes[:holder_phone]
+      })
     end
   end
 end

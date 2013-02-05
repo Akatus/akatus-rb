@@ -52,7 +52,12 @@ module Akatus
               end
             }
 
-            xml.
+            xml.telefones {
+              xml.telefone {
+                xml.tipo order.phone.kind
+                xml.numero order.phone.number
+              }
+            }
 
             xml.transacao {
               xml.desconto_total order.discount_amount || 0.0

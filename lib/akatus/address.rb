@@ -1,19 +1,13 @@
 module Akatus
   class Address
 
-    attr_accessor :postal_code, :neigborhood, :complement, :number, :street, :city, 
+    attr_accessor :postal_code, :neighborhood, :complement, :number, :street, :city, 
                   :state, :country, :kind, :country
 
     def initialize(attributes = {})
-      self.postal_code  =   attributes[:postal_code]
-      self.neigborhood  =   attributes[:neigborhood]
-      self.number       =   attributes[:number]
-      self.street       =   attributes[:street]
-      self.complement   =   attributes[:complement]
-      self.city         =   attributes[:city]
-      self.state        =   attributes[:state]
-      self.country      =   attributes[:country] || "BRA"
-      self.kind         =   attributes[:kind]
+      attributes.each do |name, value|  
+        send("#{name}=", value)  
+      end  
     end
   end  
 end  

@@ -25,11 +25,11 @@ Factory.define :product do |f|
 end
 
 Factory.define :credit_card do |f|
-  f.number            '4012001037141112'
-  f.flag              'visa'
+  f.number            '5453010000066167'
+  f.flag              'master'
   f.cvv               '123'
   f.expires_at        '05/2018'
-  f.holder_name       'Bart Simpson'
+  f.holder_name       'AUTORIZAR'
   f.holder_cpf        '13786614431'
   f.holder_phone      '1133331111'
 end  

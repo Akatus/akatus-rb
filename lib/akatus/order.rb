@@ -5,15 +5,10 @@ module Akatus
                   :phone
 
     def initialize(attributes = {})
-      self.buyer_name       =    attributes[:buyer_name]
-      self.buyer_email      =    attributes[:buyer_email]
-      self.reference        =    attributes[:reference]
-      self.discount_amount  =    attributes[:discount_amount]
-      self.freight_amount   =    attributes[:freight_amount]
-      self.weight           =    attributes[:weight]
-      self.payment_method   =    attributes[:payment_method]
-      self.installments     =    attributes[:installments]
-      self.products         =    []
+      attributes.each do |name, value|  
+        send("#{name}=", value)  
+      end  
+      self.products = []
     end  
 
     def add_product(attributes = {})

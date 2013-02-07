@@ -4,8 +4,9 @@ module Akatus
     attr_accessor :kind, :number
 
     def initialize(attributes = {})
-      self.kind   = attributes[:kind]
-      self.number = attributes[:number]
+      attributes.each do |name, value|  
+        send("#{name}=", value)  
+      end  
     end
   end  
 end  

@@ -2,10 +2,19 @@ module Akatus
   class Transactions
     def self.process(order)
       xml = prepare_xml_to_send order
+      url = "#{Akatus.akatus_api_uri}/carrinho.xml"
+      request = HTTPI::Request.new
+      request.body = xml
+      request.url = url
+      request.open_timeout = 10 # sec
+      request.read_timeout = 30 # sec
+      response = HTTPI.post request
+
+      Hash.from_xml(Nokogiri::XML(response.raw_body).to_s)['resposta']
     end
 
     def self.status(akatus_uuid)
-      url = "#{akatus_api_uri}/transacao-simplificada/#{akatus_uuid}.json?email=#{seller_email}&api_key=#{seller_api_key}"
+      url = "#{Akatus.akatus_api_uri}/transacao-simplificada/#{akatus_uuid}.json?email=#{seller_email}&api_key=#{seller_api_key}"
       request = HTTPI::Request.new
       request.url = url
       request.open_timeout = 10 # sec
@@ -14,7 +23,7 @@ module Akatus
       #TODO Finish to implement this
     end
 
-    private
+    # private
 
       def self.prepare_xml_to_send(order)
         builder = Nokogiri::XML::Builder.new do |xml|
@@ -31,11 +40,18 @@ module Akatus
                   xml.tipo order.address.kind || 'cobranca'
                   xml.logradouro order.address.street
                   xml.numero order.address.number
-                  xml.bairro order.address.neigborhood
+                  xml.bairro order.address.neighborhood
                   xml.cidade order.address.city
                   xml.estado order.address.state
                   xml.pais order.address.country || 'BRA'
                   xml.cep order.address.postal_code
+                }
+              }
+
+              xml.telefones {
+                xml.telefone {
+                  xml.tipo order.phone.kind
+                  xml.numero order.phone.number
                 }
               }
             }
@@ -50,13 +66,6 @@ module Akatus
                   xml.preco product.price
                 }
               end
-            }
-
-            xml.telefones {
-              xml.telefone {
-                xml.tipo order.phone.kind
-                xml.numero order.phone.number
-              }
             }
 
             xml.transacao {
@@ -80,6 +89,7 @@ module Akatus
             }
           }
         end
+        builder.to_xml
       end
 
       def self.map_payment_method(payment_method)

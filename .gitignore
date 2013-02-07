@@ -17,3 +17,4 @@ bin
 .yardoc
 _yardoc
 doc/
+dump.rdb

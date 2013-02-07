@@ -1,13 +1,13 @@
 module Akatus
   class Order
     attr_accessor :buyer_name, :buyer_email, :discount_amount, :freight_amount, :weight,
-                  :payment_method, :installments, :products, :uuid, :credit_card, :address,
+                  :payment_method, :installments, :products, :reference, :credit_card, :address,
                   :phone
 
     def initialize(attributes = {})
       self.buyer_name       =    attributes[:buyer_name]
       self.buyer_email      =    attributes[:buyer_email]
-      self.uuid             =    attributes[:uuid]
+      self.reference        =    attributes[:reference]
       self.discount_amount  =    attributes[:discount_amount]
       self.freight_amount   =    attributes[:freight_amount]
       self.weight           =    attributes[:weight]
@@ -29,7 +29,7 @@ module Akatus
     end  
 
     def credit_card(attributes = {})
-      self.credit_card = CreditCard.new({
+      @credit_card ||= CreditCard.new({
         :number           =>     attributes[:number],
         :cvv              =>     attributes[:cvv],
         :expires_at       =>     attributes[:expires_at],
@@ -41,7 +41,7 @@ module Akatus
     end
 
     def address(attributes = {})
-      self.address = Address.new({
+      @address ||= Address.new({
         :postal_code    =>   attributes[:postal_code],
         :neighborhood   =>   attributes[:neighborhood],
         :street         =>   attributes[:street],
@@ -53,5 +53,16 @@ module Akatus
         :country        =>   attributes[:country]
       })
     end
+
+    def phone(attributes = {})
+      @phone ||= Phone.new({
+        :kind     => attributes[:kind],
+        :number   => attributes[:number]
+      })
+    end
+
+    def credit_card?
+      %w{visa master amex diners elo hipercard}.include? payment_method
+    end  
   end
 end

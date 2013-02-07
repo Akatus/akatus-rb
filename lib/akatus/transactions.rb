@@ -20,8 +20,8 @@ module Akatus
         builder = Nokogiri::XML::Builder.new do |xml|
           xml.carrinho {
             xml.recebedor {
-              xml.api_key seller_api_key
-              xml.email seller_email
+              xml.api_key Akatus.seller_api_key
+              xml.email Akatus.seller_email
             }
             xml.pagador {
               xml.nome order.buyer_name
@@ -66,7 +66,7 @@ module Akatus
               xml.moeda 'BRL'
               xml.meio_de_pagamento map_payment_method(order.payment_method)
               xml.parcelas order.installments
-              xml.referencia order.uuid
+              xml.referencia order.reference
               if order.credit_card?
                 xml.numero order.credit_card.number
                 xml.expiracao order.credit_card.expires_at
@@ -74,7 +74,7 @@ module Akatus
                 xml.portador {
                   xml.nome order.credit_card.holder_name
                   xml.cpf order.credit_card.holder_cpf
-                  xml.telefone order.credit_card.phone
+                  xml.telefone order.credit_card.holder_phone
                 }
               end  
             }

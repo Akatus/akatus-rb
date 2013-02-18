@@ -19,12 +19,12 @@ module Akatus
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.meios_de_pagamento {
           xml.correntista {
-            xml.api_key seller_api_key
-            xml.email   seller_email
+            xml.api_key Akatus.seller_api_key
+            xml.email   Akatus.seller_email
           }
         }
       end
-      request = HTTPI::Request.new(akatus_api_uri + '/meios-de-pagamento.xml')
+      request = HTTPI::Request.new(Akatus.akatus_api_uri + '/meios-de-pagamento.xml')
       request.body = builder.to_xml
       request.open_timeout = 10 # sec
       request.read_timeout = 30 # sec

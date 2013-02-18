@@ -74,7 +74,7 @@ module Akatus
               xml.frete_total order.freight_amount || 0.0
               xml.moeda 'BRL'
               xml.meio_de_pagamento map_payment_method(order.payment_method)
-              xml.parcelas order.installments
+              xml.parcelas order.installments || 1
               xml.referencia order.reference
               if order.credit_card?
                 xml.numero order.credit_card.number
@@ -89,6 +89,8 @@ module Akatus
             }
           }
         end
+        # Rails.logger.info "---------------GENERATED XML TO SEND FOR AKATUS--------------"
+        # Rails.logger.info builder.to_xml
         builder.to_xml
       end
 
@@ -108,6 +110,8 @@ module Akatus
           'cartao_diners'
         when :elo 
           'cartao_elo' 
+        else
+          payment_method.to_s  
         end
       end
   end

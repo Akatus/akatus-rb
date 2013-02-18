@@ -57,7 +57,7 @@ module Akatus
     end
 
     def credit_card?
-      %w{visa master amex diners elo hipercard}.include? payment_method
+      %w{cartao_visa cartao_master cartao_amex cartao_diners cartao_elo cartao_hipercard}.include? payment_method
     end  
   end
 end

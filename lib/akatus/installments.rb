@@ -4,7 +4,7 @@ module Akatus
     SIMULATION_URI =
 
     def self.simulate(payment_method_code, amount)
-      url = "#{akatus_api_uri}/parcelamento/simulacao.json?email=#{seller_email}&api_key=#{seller_api_key}&payment_method=#{payment_method_code}&amount=#{amount}"
+      url = "#{Akatus.akatus_api_uri}/parcelamento/simulacao.json?email=#{Akatus.seller_email}&api_key=#{Akatus.seller_api_key}&payment_method=#{payment_method_code}&amount=#{amount}"
       request = HTTPI::Request.new
       request.url = url
       request.open_timeout = 10 # sec

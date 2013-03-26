@@ -63,7 +63,7 @@ module Akatus
                   xml.quantidade product.quantity || 1
                   xml.peso product.weight || 0.0
                   xml.frete product.freight_amount || 0.0
-                  xml.preco product.price
+                  xml.preco '%.2f' % product.price
                 }
               end
             }

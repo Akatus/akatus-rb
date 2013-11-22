@@ -69,8 +69,8 @@ module Akatus
             }
 
             xml.transacao {
-              xml.desconto_total order.discount_amount || 0.0
-              xml.peso_total order.weight || 0.0
+              xml.desconto order.discount_amount || 0.0
+              xml.peso order.weight || 0.0
               xml.frete order.freight_amount || 0.0
               xml.moeda 'BRL'
               xml.meio_de_pagamento map_payment_method(order.payment_method)

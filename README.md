@@ -2,13 +2,12 @@
 
 Client oficial de integração com Akatus em Ruby
 
-[Documentação](https://connect.akatus.com)
-[Sandbox](https://sandbox.akatus.com)
+[Documentação](https://connect.akatus.com) | [Sandbox](https://sandbox.akatus.com)
 
 
 ## Installation
 
-akatus gem is available through [Rubygems](http://rubygems.org/gems/akatus) and can be installed via:
+akatus gem is available through [Rubygems](http://rubygems.org/gems/akatus-rb) and can be installed via:
 
 ```
 $ gem install akatus-rb

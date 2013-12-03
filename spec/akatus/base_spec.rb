@@ -26,7 +26,7 @@ describe Akatus do
     end
     it "invalid configuration" do
       Akatus.config_file = "/tmp/a-file-that-dont-exist"
-      expect { Akatus.config }.to raise_error(Akatus::InvalidEnvironment)
+      expect { Akatus.config }.to raise_error(Akatus::MissingConfiguration)
     end
   end
 

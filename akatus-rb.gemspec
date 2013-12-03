@@ -25,5 +25,5 @@ Gem::Specification.new do |gem|
 
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
-  gem.add_development_dependency "factory_girl_rails"
+  gem.add_development_dependency "factory_girl"
 end

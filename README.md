@@ -22,7 +22,7 @@ gem 'akatus-rb', '~> 0.0.1'
 and generate the config:
 
 ```
-$ rails generate akatus:config
+$ rails generate akatus
 ```
 
 ## Usage example
